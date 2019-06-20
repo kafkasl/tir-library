@@ -1,0 +1,204 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# tir-library
+
+Tir library contains a collection of books and the reviews of a few chosen ones.
+
+# Group Users
+
+## Signup [/users/signup/]
+
+### Signup [POST]
+
+Create a user with the provided email and password. The user information is sent back with its authentication token.
+Henceforth this token must be attached in the header in order to authenticate the user. Status and message indicate if the user was created 
+successfully and the message.
+
+HEADER:
+```
+Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
+```
++ Request (application/json)
+
+        {
+           "email":"user@gmail.com",
+           "password": "thepassword"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "account": {
+                "ID": 36,
+                "CreatedAt": "2019-06-16T11:47:10.873404482+02:00",
+                "UpdatedAt": "2019-06-16T11:47:10.873404482+02:00",
+                "DeletedAt": null,
+                "email": "julian.delphiki@battle.school",
+                "password": "",
+                "admin": false,
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjM2fQ.YJNVi7sQghUxTPQfqLppSaJA0sOuj0yRbFVoUUiAkXQ"
+            },
+            "message": "Account has been created",
+            "status": true
+        }
+
+## Login [/users/login/]
+
+### Login [POST]
+
+If the credentials are correct the user information together with an authorization token is sent back.
+Henceforth this token must be attached in the header in order to authenticate the user. 
+
+HEADER:
+```
+Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
+```
++ Request (application/json)
+
+        {
+           "email":"user@gmail.com",
+           "password": "thepassword"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "account": {
+                "ID": 1,
+                "CreatedAt": "2019-06-19T09:02:55.81936Z",
+                "UpdatedAt": "2019-06-19T09:02:55.81936Z",
+                "DeletedAt": null,
+                "email": "julian.delphiki@battle.school",
+                "password": "",
+                "admin": false,
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjF9.XoYiCGuBzmCE9BcEhJ8-7sT47d55SeYvBb4Mo7OQkvo"
+            },
+            "message": "Logged In",
+            "status": true
+        }
+
+
+
+
+## Books Collection [/books]
+
+### Create a New Book [POST]
+
+You may create and new book using this action. It takes a JSON
+object containing a book. Only authenticated users may create  new book.
+
++ Request (application/json)
+    + Headers
+
+            Authentication: Bearer JWT
+    + Body
+        
+            {
+                "name": "Enders Shadow", 
+                "author": "Orson Scott Card", 
+                "isbn": "0-312-93208-5"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "book": {
+                    "ID": 103,
+                    "CreatedAt": "2019-06-19T11:56:48.142591098+02:00",
+                    "UpdatedAt": "2019-06-19T11:56:48.142591098+02:00",
+                    "DeletedAt": null,
+                    "name": "Enders Shadow",
+                    "author": "Orson Scott Card",
+                    "isbn": "0-3212-93208-5"
+                },
+                "message": "success",
+                "status": true
+            }
+
+### List All Books [GET]
+
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "ID": 90,
+                    "CreatedAt": "2019-06-16T12:11:21.780809+02:00",
+                    "UpdatedAt": "2019-06-16T12:11:21.780809+02:00",
+                    "DeletedAt": null,
+                    "name": "Ender's Game",
+                    "author": "Orson Scott Card",
+                    "isbn": "0-312-93208-1"
+                },
+
+            ],
+            "message": "success",
+            "status": true
+        }
+        
+      
+## Book Reviews [/books/{book_isbn}/reviews]
+
++ Parameters
+    + book_isbn - The ISBN of the book the reviews as referring to.
+    
+### List All Reviews of a Book [GET]
+
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "ID": 90,
+                    "CreatedAt": "2019-06-16T12:11:21.780809+02:00",
+                    "UpdatedAt": "2019-06-16T12:11:21.780809+02:00",
+                    "DeletedAt": null,
+                    "name": "Ender's Game",
+                    "author": "Orson Scott Card",
+                    "isbn": "0-312-93208-1"
+                },
+            ],
+            "message": "success",
+            "status": true
+        }
+        
+
+
+### Create a New Review [POST]
+
+You may create and new review using this action. It takes a JSON
+object containing the book review for the book_isbn specified in the URL. Only authenticated users may create new review.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authentication: Bearer JWT
+
+    + Body
+
+            {
+                "text": "Must read for almost everyone",
+            }
+
++ Response 201 (application/json)
+
+
+        {
+            "review": {
+                "ID": 2,
+                "CreatedAt": "2019-06-19T12:55:06.989984857+02:00",
+                "UpdatedAt": "2019-06-19T12:55:06.989984857+02:00",
+                "DeletedAt": null,
+                "text": "Must read for almost everyone",
+                "user_id": 35,
+                "book_isbn": "0-312-93208-1"
+            },
+            "message": "Review has been created",
+            "status": true
+        }
