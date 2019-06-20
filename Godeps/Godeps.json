@@ -1,0 +1,64 @@
+{
+	"ImportPath": "github.com/kafkasl/tir-library",
+	"GoVersion": "go1.12",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/dgrijalva/jwt-go",
+			"Comment": "v3.2.0-9-g7cd734d",
+			"Rev": "7cd734deee981ccda9fd90491dd093dadf75162a"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.6.1-13-g4dbd923",
+			"Rev": "4dbd923b0c9e99ff63ad54b0e9705ff92d3cdb06"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Comment": "v1.9.8",
+			"Rev": "b7156195f7f3415f97c20abbd6aff894b847fee8"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm/dialects/postgres",
+			"Comment": "v1.9.8",
+			"Rev": "b7156195f7f3415f97c20abbd6aff894b847fee8"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/inflection",
+			"Rev": "f5c5f50e6090ae76a29240b61ae2a90dd810112e"
+		},
+		{
+			"ImportPath": "github.com/joho/godotenv",
+			"Comment": "v1.3.0-10-g5c0e6c6",
+			"Rev": "5c0e6c6ab1a0a9ef0a8822cba3a05d62f7dad941"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "v1.1.1-3-g2ff3cb3",
+			"Rev": "2ff3cb3adc01768e0a552b3a02575a6df38a9bea"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/hstore",
+			"Comment": "v1.1.1-3-g2ff3cb3",
+			"Rev": "2ff3cb3adc01768e0a552b3a02575a6df38a9bea"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/oid",
+			"Comment": "v1.1.1-3-g2ff3cb3",
+			"Rev": "2ff3cb3adc01768e0a552b3a02575a6df38a9bea"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/scram",
+			"Comment": "v1.1.1-3-g2ff3cb3",
+			"Rev": "2ff3cb3adc01768e0a552b3a02575a6df38a9bea"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/bcrypt",
+			"Rev": "de0752318171da717af4ce24d0a2e8626afaeb11"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/blowfish",
+			"Rev": "de0752318171da717af4ce24d0a2e8626afaeb11"
+		}
+	]
+}
