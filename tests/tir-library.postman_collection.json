@@ -1,0 +1,694 @@
+{
+	"info": {
+		"_postman_id": "05bd6102-8c1d-4254-c916-6add59b0e210",
+		"name": "tir-library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5bedde31-b057-4506-93bb-f4d327a97e11",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"});",
+							"",
+							"pm.test(\"new user should be created\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(true);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Account has been created\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"new user data is correct\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"account\"][\"email\"]).to.eql(\"julian.delphiki@battle.school\");",
+							"    pm.expect(jsonData[\"account\"][\"admin\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"account\"][\"password\"]).to.eql(\"\");",
+							"    ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"julian.delphiki@battle.school\", \"password\": \"beanie\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New User Duplicated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5bedde31-b057-4506-93bb-f4d327a97e11",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"new user should be created\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Email address already in use by another user\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"julian.delphiki@battle.school\", \"password\": \"beanie\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Bean",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f73366e-dd89-40e0-95e9-1472fe43fc8f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"});",
+							"",
+							"pm.test(\"new user should be created\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(true);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Logged In\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"new user data is correct\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"account\"][\"email\"]).to.eql(\"julian.delphiki@battle.school\");",
+							"    pm.expect(jsonData[\"account\"][\"admin\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"account\"][\"password\"]).to.eql(\"\");",
+							"    pm.expect(jsonData[\"account\"][\"email\"]).to.eql(\"julian.delphiki@battle.school\");",
+							"",
+							"    ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"julian.delphiki@battle.school\", \"password\": \"beanie\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Unregistered",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f73366e-dd89-40e0-95e9-1472fe43fc8f",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"email address not registered\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Email address not found\");",
+							"    ",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"james.delphiki@battle.school\", \"password\": \"beanie\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Wrong Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f73366e-dd89-40e0-95e9-1472fe43fc8f",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"invalid login credentials\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Invalid login credentials. Please try again\");",
+							"    ",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"julian.delphiki@battle.school\", \"password\": \"xxx\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5b9ac15-3954-4de5-8d85-e1f6817406f2",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"});",
+							"",
+							"pm.test(\"new book should be created\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(true);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Book has been created\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"new book data is correct\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"book\"][\"name\"]).to.eql(\"Enders Shadow\");",
+							"    pm.expect(jsonData[\"book\"][\"author\"]).to.eql(\"Orson Scott Card\");",
+							"    pm.expect(jsonData[\"book\"][\"isbn\"]).to.eql(\"0-312-93208-5\");",
+							"    pm.expect(jsonData[\"book\"][\"ID\"]).above(0);",
+							"",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjM1fQ.PEBvd6U4W2mt8Q98z18gj74RPNSmTzAGI--AnNR62VU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Enders Shadow\", \"author\": \"Orson Scott Card\", \"isbn\": \"0-312-93208-5\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Book Duplicated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6d847cc-983d-462e-9cf9-80ef685a2c7d",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"book ISBN is already registered\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Book ISBN is already registered\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjM1fQ.PEBvd6U4W2mt8Q98z18gj74RPNSmTzAGI--AnNR62VU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Enders Shadow\", \"author\": \"Orson Scott Card\", \"isbn\": \"0-312-93208-5\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Book No Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6d847cc-983d-462e-9cf9-80ef685a2c7d",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"not authorized to create book\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Missing auth token\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Enders Shadow\", \"author\": \"Orson Scott Card\", \"isbn\": \"0-312-93208-5\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd039103-d97d-4e46-9cb5-d5f7745efe20",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"});",
+							"",
+							"pm.test(\"request should be successful\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(true);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"success\");",
+							"    ",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('number of books returned = ' + jsonData[\"data\"].length, function () {",
+							"    pm.expect(jsonData[\"data\"].length).to.equal(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"list of books is correct\", function () { ",
+							"    pm.expect(jsonData[\"data\"][0][\"name\"]).to.eql(\"Enders Shadow\");",
+							"    pm.expect(jsonData[\"data\"][0][\"author\"]).to.eql(\"Orson Scott Card\");",
+							"    pm.expect(jsonData[\"data\"][0][\"isbn\"]).to.eql(\"0-312-93208-5\");",
+							"    ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9e98c49-34dc-45a7-aa61-691a1e189164",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"});",
+							"",
+							"pm.test(\"new review should be created\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(true);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Review has been created\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"new review data is correct\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"review\"][\"text\"]).to.eql(\"Must read for almost everyone\");",
+							"    pm.expect(jsonData[\"review\"][\"book_isbn\"]).to.eql(\"0-312-93208-5\");",
+							"    pm.expect(jsonData[\"review\"][\"user_id\"]).above(0);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjM1fQ.PEBvd6U4W2mt8Q98z18gj74RPNSmTzAGI--AnNR62VU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"text\": \"Must read for almost everyone\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/books/0-312-93208-5/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"books",
+						"0-312-93208-5",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Review No auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9e98c49-34dc-45a7-aa61-691a1e189164",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"not authorized to create review\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(false);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Missing auth token\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"text\": \"Must read for almost everyone\"}"
+				},
+				"url": {
+					"raw": "localhost:8000/api/books/0-312-93208-5/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"books",
+						"0-312-93208-5",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6c0e55f-3d58-4601-bd67-e3551eee18c3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"});",
+							"",
+							"pm.test(\"request should be successful\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"status\"]).to.eql(true);",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"success\");",
+							"    ",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('number of reviews returned = ' + jsonData[\"data\"].length, function () {",
+							"    pm.expect(jsonData[\"data\"].length).to.equal(1);",
+							"});",
+							"",
+							"pm.test(\"list of reviews is correct\", function () { ",
+							"    pm.expect(jsonData[\"data\"][0][\"text\"]).to.eql(\"Must read for almost everyone\");",
+							"    pm.expect(jsonData[\"data\"][0][\"user_id\"]).above(0);",
+							"    pm.expect(jsonData[\"data\"][0][\"book_isbn\"]).to.eql(\"0-312-93208-5\");",
+							"    ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjF9.wcUaspFuy-U4rN3cQ8KerFARodeYvhbq_kBBEO6foHM"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/books/0-312-93208-5/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"books",
+						"0-312-93208-5",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
