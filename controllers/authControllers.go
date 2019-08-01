@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-var CreateAccount = func(w http.ResponseWriter, r *http.Request) {
+func CreateAccount(w http.ResponseWriter, r *http.Request) {
 
 	account := &models.Account{}
 	err := json.NewDecoder(r.Body).Decode(account) // Decode the request body into struct and failed if any error occur
@@ -20,7 +20,7 @@ var CreateAccount = func(w http.ResponseWriter, r *http.Request) {
 	u.Respond(w, resp, status)
 }
 
-var Authenticate = func(w http.ResponseWriter, r *http.Request) {
+func Authenticate(w http.ResponseWriter, r *http.Request) {
 
 	account := &models.Account{}
 	err := json.NewDecoder(r.Body).Decode(account) //decode the request body into struct and failed if any error occur
@@ -32,4 +32,3 @@ var Authenticate = func(w http.ResponseWriter, r *http.Request) {
 	resp, status := models.Login(account.Email, account.Password)
 	u.Respond(w, resp, status)
 }
-

@@ -59,7 +59,7 @@ func (book *Book) Validate() (map[string]interface{}, bool) {
 		return u.Message(false, "Book ISBN format is not valid."), false
 	}
 
-	fmt.Println("Succesful book validation")
+	fmt.Println("Successful book validation")
 
 	// All the required parameters are present
 	return u.Message(true, "Book has been created"), true
@@ -89,9 +89,9 @@ func GetBook(isbn uint) (*Book) {
 	return book
 }
 
-func GetBooks() ([]*Book, int) {
+func GetBooks() ([]Book, int) {
 
-	books := make([]*Book, 0)
+	books := make([]Book, 0)
 	db := GetDB()
 	if db == nil {
 		fmt.Println("Nil DB")

@@ -14,8 +14,8 @@ go build -o bin/tir-library -v .
 go clean -testcache
 
 # Run go tests
-# godotenv -f .env.test go test models/* -v
-# godotenv -f .env.test go test controllers/* -v
+# godotenv -f $(pwd)/.env go test controllers/* -v
+godotenv -f .env go test models/* -v
 
 # Run Postman tests
 

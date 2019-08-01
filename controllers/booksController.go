@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-var CreateBook = func(w http.ResponseWriter, r *http.Request) {
+func CreateBook(w http.ResponseWriter, r *http.Request) {
 
 	book := &models.Book{}
 	err := json.NewDecoder(r.Body).Decode(book)
@@ -22,7 +22,7 @@ var CreateBook = func(w http.ResponseWriter, r *http.Request) {
 	u.Respond(w, resp, status)
 }
 
-var GetBooks = func(w http.ResponseWriter, r *http.Request) {
+func GetBooks(w http.ResponseWriter, r *http.Request) {
 
 	data, status := models.GetBooks()
 	resp := u.Message(true, "success")

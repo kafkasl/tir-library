@@ -13,8 +13,8 @@ var db *gorm.DB
 func init() {
 
 	e := godotenv.Load()
-	if e != nil {
-		fmt.Print("Error loading .env file: ", e)
+	if e != nil && os.Getenv("environment") == "" {
+		fmt.Printf("Error loading .env file: %s\n", e)
 	}
 
 	username := os.Getenv("db_user")
@@ -22,6 +22,8 @@ func init() {
 	dbName := os.Getenv("db_name")
 	dbHost := os.Getenv("db_host")
 	environment := os.Getenv("environment")
+
+	fmt.Println("Environment: ", environment)
 
 	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password)
 	fmt.Println(dbUri)

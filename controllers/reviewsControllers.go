@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-var CreateReview = func(w http.ResponseWriter, r *http.Request) {
+func CreateReview(w http.ResponseWriter, r *http.Request) {
 
 	user := r.Context().Value("user").(uint) // Grab the id of the user that send the request
 	book_isbn := mux.Vars(r)["book_isbn"]
@@ -28,7 +28,7 @@ var CreateReview = func(w http.ResponseWriter, r *http.Request) {
 	u.Respond(w, resp, status)
 }
 
-var GetReviewsFor = func(w http.ResponseWriter, r *http.Request) {
+func GetReviewsFor(w http.ResponseWriter, r *http.Request) {
 
 	book_isbn := mux.Vars(r)["book_isbn"]
 	data, status := models.GetReviews(book_isbn)

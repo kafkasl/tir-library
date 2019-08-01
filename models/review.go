@@ -65,9 +65,11 @@ func (review *Review) Create() (map[string]interface{}, int) {
 	return resp, http.StatusCreated
 }
 
-func GetReviews(isbn string) ([]*Review, int) {
+// GetReviews returns the reviews of the book associated with 'isbn' and the status code for the request
+// Reviews are returned as a list or nil if no reviews are found.
+func GetReviews(isbn string) ([]Review, int) {
 
-	reviews := make([]*Review, 0)
+	reviews := make([]Review, 0)
 	err := GetDB().Table("reviews").Where("book_isbn = ?", isbn).Find(&reviews).Error
 	if err != nil {
 		fmt.Println(err)
